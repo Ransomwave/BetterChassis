@@ -1,0 +1,149 @@
+{
+  "name": "Game",
+  "className": "DataModel",
+  "children": [
+    {
+      "name": "BetterChassis",
+      "className": "ModuleScript",
+      "guid": "750459",
+      "filePaths": ["sync/ReplicatedStorage/BetterChassis.luau"],
+      "children": [
+        {
+          "name": "ConfigTemplate",
+          "className": "ModuleScript",
+          "guid": "750460",
+          "filePaths": [
+            "sync/ReplicatedStorage/BetterChassis/ConfigTemplate.luau"
+          ]
+        },
+        {
+          "name": "A-Chassis Interface",
+          "className": "ScreenGui",
+          "guid": "750470",
+          "children": [
+            {
+              "name": "Car",
+              "className": "ObjectValue",
+              "guid": "750469"
+            },
+            {
+              "name": "ControlsOpen",
+              "className": "BoolValue",
+              "guid": "750455"
+            },
+            {
+              "name": "Drive",
+              "className": "LocalScript",
+              "guid": "750458",
+              "filePaths": [
+                "sync/ReplicatedStorage/BetterChassis/A-Chassis Interface/Drive.client.luau"
+              ]
+            },
+            {
+              "name": "IsOn",
+              "className": "BoolValue",
+              "guid": "750454"
+            },
+            {
+              "name": "Values",
+              "className": "Folder",
+              "guid": "750456",
+              "children": [
+                {
+                  "name": "ABS",
+                  "className": "BoolValue",
+                  "guid": "750451"
+                },
+                {
+                  "name": "ABSActive",
+                  "className": "BoolValue",
+                  "guid": "750452"
+                },
+                {
+                  "name": "Brake",
+                  "className": "NumberValue",
+                  "guid": "750468"
+                },
+                {
+                  "name": "Gear",
+                  "className": "NumberValue",
+                  "guid": "750464"
+                },
+                {
+                  "name": "Horsepower",
+                  "className": "NumberValue",
+                  "guid": "750462"
+                },
+                {
+                  "name": "MouseSteerOn",
+                  "className": "BoolValue",
+                  "guid": "750453"
+                },
+                {
+                  "name": "PBrake",
+                  "className": "BoolValue",
+                  "guid": "750449"
+                },
+                {
+                  "name": "RPM",
+                  "className": "NumberValue",
+                  "guid": "750461"
+                },
+                {
+                  "name": "SteerC",
+                  "className": "NumberValue",
+                  "guid": "750466"
+                },
+                {
+                  "name": "SteerT",
+                  "className": "NumberValue",
+                  "guid": "750467"
+                },
+                {
+                  "name": "TCS",
+                  "className": "BoolValue",
+                  "guid": "750448"
+                },
+                {
+                  "name": "TCSActive",
+                  "className": "BoolValue",
+                  "guid": "750450"
+                },
+                {
+                  "name": "Throttle",
+                  "className": "NumberValue",
+                  "guid": "750465"
+                },
+                {
+                  "name": "Torque",
+                  "className": "NumberValue",
+                  "guid": "750463"
+                },
+                {
+                  "name": "TransmissionMode",
+                  "className": "StringValue",
+                  "guid": "750471"
+                },
+                {
+                  "name": "Velocity",
+                  "className": "Vector3Value",
+                  "guid": "750472"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Plugins",
+          "className": "Folder",
+          "guid": "750457"
+        }
+      ]
+    }
+  ],
+  "_azul": {
+    "packVersion": 1,
+    "packedAt": "2026-02-22T03:58:59.680Z",
+    "mode": "scripts-and-descendants"
+  }
+}
