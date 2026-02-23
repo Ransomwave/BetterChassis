@@ -3,147 +3,769 @@
   "className": "DataModel",
   "children": [
     {
-      "name": "BetterChassis",
-      "className": "ModuleScript",
-      "guid": "750459",
-      "filePaths": ["sync/ReplicatedStorage/BetterChassis.luau"],
+      "name": "ReplicatedStorage",
+      "className": "ReplicatedStorage",
+      "guid": "10916",
       "children": [
         {
-          "name": "ConfigTemplate",
+          "name": "BetterChassis",
           "className": "ModuleScript",
-          "guid": "750460",
+          "guid": "8497474",
           "filePaths": [
-            "sync/ReplicatedStorage/BetterChassis/ConfigTemplate.luau"
-          ]
-        },
-        {
-          "name": "A-Chassis Interface",
-          "className": "ScreenGui",
-          "guid": "750470",
+            "sync/ReplicatedStorage/BetterChassis.luau"
+          ],
           "children": [
             {
-              "name": "Car",
-              "className": "ObjectValue",
-              "guid": "750469"
-            },
-            {
-              "name": "ControlsOpen",
-              "className": "BoolValue",
-              "guid": "750455"
-            },
-            {
-              "name": "Drive",
-              "className": "LocalScript",
-              "guid": "750458",
-              "filePaths": [
-                "sync/ReplicatedStorage/BetterChassis/A-Chassis Interface/Drive.client.luau"
-              ]
-            },
-            {
-              "name": "IsOn",
-              "className": "BoolValue",
-              "guid": "750454"
-            },
-            {
-              "name": "Values",
-              "className": "Folder",
-              "guid": "750456",
+              "name": "A-Chassis Interface",
+              "className": "ScreenGui",
+              "guid": "8497484",
               "children": [
                 {
-                  "name": "ABS",
+                  "name": "Buttons",
+                  "className": "Frame",
+                  "guid": "8497466",
+                  "children": [
+                    {
+                      "name": "AccelerationButtons",
+                      "className": "Frame",
+                      "guid": "8497468",
+                      "children": [
+                        {
+                          "name": "Accelerate",
+                          "className": "ImageButton",
+                          "guid": "8497471",
+                          "children": [
+                            {
+                              "name": "UIAspectRatioConstraint",
+                              "className": "UIAspectRatioConstraint",
+                              "guid": "8497494",
+                              "properties": {
+                                "AspectRatio": 0.6666666865348816
+                              }
+                            }
+                          ],
+                          "properties": {
+                            "BorderColor3": {
+                              "b": 0,
+                              "__type": "Color3",
+                              "g": 0,
+                              "r": 0
+                            },
+                            "AnchorPoint": {
+                              "y": 0.5,
+                              "__type": "Vector2",
+                              "x": 0.5
+                            },
+                            "Image": "rbxassetid://135056078033576",
+                            "BackgroundTransparency": 1,
+                            "Position": {
+                              "yScale": 0.6898471713066101,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 0.7655874490737915,
+                              "yOffset": 0
+                            },
+                            "Transparency": 1,
+                            "Size": {
+                              "yScale": 0.6176470518112183,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 0.4634877145290375,
+                              "yOffset": 0
+                            },
+                            "BorderSizePixel": 0,
+                            "BackgroundColor3": {
+                              "b": 1,
+                              "__type": "Color3",
+                              "g": 1,
+                              "r": 1
+                            }
+                          }
+                        },
+                        {
+                          "name": "Decelerate",
+                          "className": "ImageButton",
+                          "guid": "8497472",
+                          "children": [
+                            {
+                              "name": "UIAspectRatioConstraint",
+                              "className": "UIAspectRatioConstraint",
+                              "guid": "8497495",
+                              "properties": {
+                                "AspectRatio": 0.8888888955116272
+                              }
+                            }
+                          ],
+                          "properties": {
+                            "BorderColor3": {
+                              "b": 0,
+                              "__type": "Color3",
+                              "g": 0,
+                              "r": 0
+                            },
+                            "AnchorPoint": {
+                              "y": 0.5,
+                              "__type": "Vector2",
+                              "x": 0.5
+                            },
+                            "Image": "rbxassetid://109260299241408",
+                            "BackgroundTransparency": 1,
+                            "Position": {
+                              "yScale": 0.7637158632278442,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 0.2245256006717682,
+                              "yOffset": 0
+                            },
+                            "Transparency": 1,
+                            "Size": {
+                              "yScale": 0.4632352888584137,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 0.4634877145290375,
+                              "yOffset": 0
+                            },
+                            "BorderSizePixel": 0,
+                            "BackgroundColor3": {
+                              "b": 1,
+                              "__type": "Color3",
+                              "g": 1,
+                              "r": 1
+                            }
+                          }
+                        },
+                        {
+                          "name": "UIAspectRatioConstraint",
+                          "className": "UIAspectRatioConstraint",
+                          "guid": "8497496",
+                          "properties": {
+                            "AspectRatio": 0.8884047865867615
+                          }
+                        }
+                      ],
+                      "properties": {
+                        "AnchorPoint": {
+                          "y": 1,
+                          "__type": "Vector2",
+                          "x": 1
+                        },
+                        "Transparency": 1,
+                        "BackgroundTransparency": 1,
+                        "Position": {
+                          "yScale": 0.9987966418266296,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 0.9877219200134277,
+                          "yOffset": 0
+                        },
+                        "BorderColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "Size": {
+                          "yScale": 0.45583438873291016,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 0.214592844247818,
+                          "yOffset": 0
+                        },
+                        "BorderSizePixel": 0,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Brake",
+                      "className": "TextButton",
+                      "guid": "8497486",
+                      "properties": {
+                        "Visible": false,
+                        "FontFace": {
+                          "family": "rbxasset://fonts/families/SourceSansPro.json",
+                          "__type": "Font",
+                          "style": 0,
+                          "weight": 400
+                        },
+                        "TextColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "BorderColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        },
+                        "Text": "v",
+                        "TextWrapped": true,
+                        "Position": {
+                          "yScale": 192.81605529785156,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 7.74018669128418,
+                          "yOffset": 0
+                        },
+                        "TextSize": 14,
+                        "Size": {
+                          "yScale": 0,
+                          "__type": "UDim2",
+                          "xOffset": 95,
+                          "xScale": 0,
+                          "yOffset": 125
+                        },
+                        "TextScaled": true,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "DirectionButtons",
+                      "className": "Frame",
+                      "guid": "8497467",
+                      "children": [
+                        {
+                          "name": "Left",
+                          "className": "ImageButton",
+                          "guid": "8497469",
+                          "children": [
+                            {
+                              "name": "UIAspectRatioConstraint",
+                              "className": "UIAspectRatioConstraint",
+                              "guid": "8497492"
+                            }
+                          ],
+                          "properties": {
+                            "BorderColor3": {
+                              "b": 0,
+                              "__type": "Color3",
+                              "g": 0,
+                              "r": 0
+                            },
+                            "AnchorPoint": {
+                              "y": 0.5,
+                              "__type": "Vector2",
+                              "x": 0.5
+                            },
+                            "Image": "rbxassetid://122584284742017",
+                            "BackgroundTransparency": 1,
+                            "Position": {
+                              "yScale": 0.8061224222183228,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 0.0859481617808342,
+                              "yOffset": 0
+                            },
+                            "Transparency": 1,
+                            "Size": {
+                              "yScale": 1,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 1,
+                              "yOffset": 0
+                            },
+                            "BorderSizePixel": 0,
+                            "BackgroundColor3": {
+                              "b": 1,
+                              "__type": "Color3",
+                              "g": 1,
+                              "r": 1
+                            }
+                          }
+                        },
+                        {
+                          "name": "Right",
+                          "className": "ImageButton",
+                          "guid": "8497470",
+                          "children": [
+                            {
+                              "name": "UIAspectRatioConstraint",
+                              "className": "UIAspectRatioConstraint",
+                              "guid": "8497493"
+                            }
+                          ],
+                          "properties": {
+                            "BorderColor3": {
+                              "b": 0,
+                              "__type": "Color3",
+                              "g": 0,
+                              "r": 0
+                            },
+                            "AnchorPoint": {
+                              "y": 0.5,
+                              "__type": "Vector2",
+                              "x": 0.5
+                            },
+                            "Image": "rbxassetid://107424100130442",
+                            "BackgroundTransparency": 1,
+                            "Position": {
+                              "yScale": 0.8061224222183228,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 0.2305593490600586,
+                              "yOffset": 0
+                            },
+                            "Transparency": 1,
+                            "Size": {
+                              "yScale": 1,
+                              "__type": "UDim2",
+                              "xOffset": 0,
+                              "xScale": 1,
+                              "yOffset": 0
+                            },
+                            "BorderSizePixel": 0,
+                            "BackgroundColor3": {
+                              "b": 1,
+                              "__type": "Color3",
+                              "g": 1,
+                              "r": 1
+                            }
+                          }
+                        },
+                        {
+                          "name": "UIAspectRatioConstraint",
+                          "className": "UIAspectRatioConstraint",
+                          "guid": "8497491",
+                          "properties": {
+                            "AspectRatio": 2.059999942779541
+                          }
+                        },
+                        {
+                          "name": "UIListLayout",
+                          "className": "UIListLayout",
+                          "guid": "8497497",
+                          "properties": {
+                            "VerticalAlignment": {
+                              "__type": "EnumItem",
+                              "enumType": "VerticalAlignment",
+                              "name": "Center"
+                            },
+                            "FillDirection": {
+                              "__type": "EnumItem",
+                              "enumType": "FillDirection",
+                              "name": "Horizontal"
+                            },
+                            "SortOrder": {
+                              "__type": "EnumItem",
+                              "enumType": "SortOrder",
+                              "name": "LayoutOrder"
+                            },
+                            "Padding": {
+                              "scale": 0.019999999552965164,
+                              "__type": "UDim",
+                              "offset": 0
+                            }
+                          }
+                        }
+                      ],
+                      "properties": {
+                        "AnchorPoint": {
+                          "y": 1,
+                          "__type": "Vector2",
+                          "x": 0
+                        },
+                        "Transparency": 1,
+                        "BackgroundTransparency": 1,
+                        "Position": {
+                          "yScale": 0.9983634948730469,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 0.010914051905274391,
+                          "yOffset": 0
+                        },
+                        "BorderColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "Size": {
+                          "yScale": 0.2551020085811615,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 0.2524504065513611,
+                          "yOffset": 0
+                        },
+                        "BorderSizePixel": 0,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Gas",
+                      "className": "TextButton",
+                      "guid": "8497487",
+                      "properties": {
+                        "Visible": false,
+                        "FontFace": {
+                          "family": "rbxasset://fonts/families/SourceSansPro.json",
+                          "__type": "Font",
+                          "style": 0,
+                          "weight": 400
+                        },
+                        "TextColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "BorderColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        },
+                        "Text": "^",
+                        "TextWrapped": true,
+                        "Position": {
+                          "yScale": 192.81605529785156,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 8.895910263061523,
+                          "yOffset": 0
+                        },
+                        "TextSize": 90,
+                        "Size": {
+                          "yScale": 0,
+                          "__type": "UDim2",
+                          "xOffset": 96,
+                          "xScale": 0,
+                          "yOffset": 125
+                        },
+                        "TextScaled": true,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Handbrake",
+                      "className": "TextButton",
+                      "guid": "8497488",
+                      "properties": {
+                        "Visible": false,
+                        "FontFace": {
+                          "family": "rbxasset://fonts/families/SourceSansPro.json",
+                          "__type": "Font",
+                          "style": 0,
+                          "weight": 400
+                        },
+                        "TextColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "BorderColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        },
+                        "Text": "Handbrake",
+                        "TextWrapped": true,
+                        "Position": {
+                          "yScale": 164.20175170898438,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 7.74018669128418,
+                          "yOffset": 0
+                        },
+                        "TextSize": 14,
+                        "Size": {
+                          "yScale": 0,
+                          "__type": "UDim2",
+                          "xOffset": 219,
+                          "xScale": 0,
+                          "yOffset": 45
+                        },
+                        "TextScaled": true,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Left",
+                      "className": "TextButton",
+                      "guid": "8497489",
+                      "properties": {
+                        "Visible": false,
+                        "FontFace": {
+                          "family": "rbxasset://fonts/families/SourceSansPro.json",
+                          "__type": "Font",
+                          "style": 0,
+                          "weight": 400
+                        },
+                        "TextColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "BorderColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        },
+                        "Text": "<",
+                        "TextWrapped": true,
+                        "Position": {
+                          "yScale": 192.81605529785156,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 0.20896968245506287,
+                          "yOffset": 0
+                        },
+                        "TextSize": 14,
+                        "Size": {
+                          "yScale": 0,
+                          "__type": "UDim2",
+                          "xOffset": 126,
+                          "xScale": 0,
+                          "yOffset": 125
+                        },
+                        "TextScaled": true,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Right",
+                      "className": "TextButton",
+                      "guid": "8497490",
+                      "properties": {
+                        "Visible": false,
+                        "FontFace": {
+                          "family": "rbxasset://fonts/families/SourceSansPro.json",
+                          "__type": "Font",
+                          "style": 0,
+                          "weight": 400
+                        },
+                        "TextColor3": {
+                          "b": 0,
+                          "__type": "Color3",
+                          "g": 0,
+                          "r": 0
+                        },
+                        "BorderColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        },
+                        "Text": ">",
+                        "TextWrapped": true,
+                        "Position": {
+                          "yScale": 192.81605529785156,
+                          "__type": "UDim2",
+                          "xOffset": 0,
+                          "xScale": 1.6133348941802979,
+                          "yOffset": 0
+                        },
+                        "TextSize": 14,
+                        "Size": {
+                          "yScale": 0,
+                          "__type": "UDim2",
+                          "xOffset": 126,
+                          "xScale": 0,
+                          "yOffset": 125
+                        },
+                        "TextScaled": true,
+                        "BackgroundColor3": {
+                          "b": 1,
+                          "__type": "Color3",
+                          "g": 1,
+                          "r": 1
+                        }
+                      }
+                    }
+                  ],
+                  "properties": {
+                    "Transparency": 1,
+                    "BackgroundTransparency": 1,
+                    "Position": {
+                      "yScale": 0.029982363805174828,
+                      "__type": "UDim2",
+                      "xOffset": 0,
+                      "xScale": 0,
+                      "yOffset": 0
+                    },
+                    "BorderColor3": {
+                      "b": 0.8352941870689392,
+                      "__type": "Color3",
+                      "g": 0.7529412508010864,
+                      "r": 0.40392160415649414
+                    },
+                    "Size": {
+                      "yScale": 1,
+                      "__type": "UDim2",
+                      "xOffset": 0,
+                      "xScale": 1,
+                      "yOffset": 0
+                    },
+                    "BackgroundColor3": {
+                      "b": 1,
+                      "__type": "Color3",
+                      "g": 1,
+                      "r": 1
+                    }
+                  }
+                },
+                {
+                  "name": "Car",
+                  "className": "ObjectValue",
+                  "guid": "8497483"
+                },
+                {
+                  "name": "ControlsOpen",
                   "className": "BoolValue",
-                  "guid": "750451"
+                  "guid": "8497463"
                 },
                 {
-                  "name": "ABSActive",
+                  "name": "Drive",
+                  "className": "LocalScript",
+                  "guid": "8497473",
+                  "filePaths": [
+                    "sync/ReplicatedStorage/BetterChassis/A-Chassis Interface/Drive.client.luau"
+                  ]
+                },
+                {
+                  "name": "IsOn",
                   "className": "BoolValue",
-                  "guid": "750452"
+                  "guid": "8497462"
                 },
                 {
-                  "name": "Brake",
-                  "className": "NumberValue",
-                  "guid": "750468"
-                },
-                {
-                  "name": "Gear",
-                  "className": "NumberValue",
-                  "guid": "750464"
-                },
-                {
-                  "name": "Horsepower",
-                  "className": "NumberValue",
-                  "guid": "750462"
-                },
-                {
-                  "name": "MouseSteerOn",
-                  "className": "BoolValue",
-                  "guid": "750453"
-                },
-                {
-                  "name": "PBrake",
-                  "className": "BoolValue",
-                  "guid": "750449"
-                },
-                {
-                  "name": "RPM",
-                  "className": "NumberValue",
-                  "guid": "750461"
-                },
-                {
-                  "name": "SteerC",
-                  "className": "NumberValue",
-                  "guid": "750466"
-                },
-                {
-                  "name": "SteerT",
-                  "className": "NumberValue",
-                  "guid": "750467"
-                },
-                {
-                  "name": "TCS",
-                  "className": "BoolValue",
-                  "guid": "750448"
-                },
-                {
-                  "name": "TCSActive",
-                  "className": "BoolValue",
-                  "guid": "750450"
-                },
-                {
-                  "name": "Throttle",
-                  "className": "NumberValue",
-                  "guid": "750465"
-                },
-                {
-                  "name": "Torque",
-                  "className": "NumberValue",
-                  "guid": "750463"
-                },
-                {
-                  "name": "TransmissionMode",
-                  "className": "StringValue",
-                  "guid": "750471"
-                },
-                {
-                  "name": "Velocity",
-                  "className": "Vector3Value",
-                  "guid": "750472"
+                  "name": "Values",
+                  "className": "Folder",
+                  "guid": "8497464",
+                  "children": [
+                    {
+                      "name": "ABS",
+                      "className": "BoolValue",
+                      "guid": "8497459"
+                    },
+                    {
+                      "name": "ABSActive",
+                      "className": "BoolValue",
+                      "guid": "8497460"
+                    },
+                    {
+                      "name": "Brake",
+                      "className": "NumberValue",
+                      "guid": "8497482"
+                    },
+                    {
+                      "name": "Gear",
+                      "className": "NumberValue",
+                      "guid": "8497478"
+                    },
+                    {
+                      "name": "Horsepower",
+                      "className": "NumberValue",
+                      "guid": "8497476"
+                    },
+                    {
+                      "name": "MouseSteerOn",
+                      "className": "BoolValue",
+                      "guid": "8497461"
+                    },
+                    {
+                      "name": "PBrake",
+                      "className": "BoolValue",
+                      "guid": "8497457"
+                    },
+                    {
+                      "name": "RPM",
+                      "className": "NumberValue",
+                      "guid": "8497475"
+                    },
+                    {
+                      "name": "SteerC",
+                      "className": "NumberValue",
+                      "guid": "8497480"
+                    },
+                    {
+                      "name": "SteerT",
+                      "className": "NumberValue",
+                      "guid": "8497481"
+                    },
+                    {
+                      "name": "TCS",
+                      "className": "BoolValue",
+                      "guid": "8497456"
+                    },
+                    {
+                      "name": "TCSActive",
+                      "className": "BoolValue",
+                      "guid": "8497458"
+                    },
+                    {
+                      "name": "Throttle",
+                      "className": "NumberValue",
+                      "guid": "8497479"
+                    },
+                    {
+                      "name": "Torque",
+                      "className": "NumberValue",
+                      "guid": "8497477"
+                    },
+                    {
+                      "name": "TransmissionMode",
+                      "className": "StringValue",
+                      "guid": "8497485"
+                    },
+                    {
+                      "name": "Velocity",
+                      "className": "Vector3Value",
+                      "guid": "8497498"
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "name": "Plugins",
+              "className": "Folder",
+              "guid": "8497465"
             }
           ]
-        },
-        {
-          "name": "Plugins",
-          "className": "Folder",
-          "guid": "750457"
         }
-      ]
+      ],
+      "properties": {
+        "Archivable": true
+      }
     }
   ],
   "_azul": {
     "packVersion": 1,
-    "packedAt": "2026-02-22T03:58:59.680Z",
+    "packedAt": "2026-02-23T01:12:00.306Z",
     "mode": "scripts-and-descendants"
   }
 }
