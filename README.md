@@ -12,6 +12,11 @@ BetterChassis is `A-Chassis` (version 6.52S2) with a focus on modularity. Instea
 
 - **Sound**: A plugin that adds engine sounds to your vehicle.
 - **Mobile Controls**: Rather than a plugin per-say, this has been built into the core of the system. It a mobile-friendly control scheme to your vehicle.
+  - To set up mobile controls, you'll need to add a `Mobile` ScreenGui in `StarterGui`
+    - Inside the `Mobile` ScreenGui, add a `Frame` named `Buttons`
+    - Inside the `Buttons` Frame, add 2 frames: `AccelerationButtons` and `DirectionButtons`
+    - Inside the `AccelerationButtons` frame, add two `TextButton`s named `Accelerate` and `Decelerate`
+    - Inside the `DirectionButtons` frame, add two `TextButton`s named `Left` and `Right`
 
 ## Syntax
 
