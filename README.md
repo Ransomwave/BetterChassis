@@ -2,6 +2,17 @@
 
 BetterChassis is `A-Chassis` (version 6.52S2) with a focus on modularity. Instead of copy-pasting the system into every vehicle in your game, you can use `BetterChassis` as the base for all your vehicles.
 
+## What's included?
+
+- The core `BetterChassis` module, which contains the main logic for the system.
+- A `ConfigTemplate` module, which serves as a template for the configuration of your vehicles
+- `ChassisUtils`, a module containing utility functions for the system.
+
+### Built-in Plugins
+
+- **Sound**: A plugin that adds engine sounds to your vehicle.
+- **Mobile Controls**: Rather than a plugin per-say, this has been built into the core of the system. It a mobile-friendly control scheme to your vehicle.
+
 ## Syntax
 
 ```lua

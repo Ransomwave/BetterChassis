@@ -1,3 +1,7 @@
+--[[
+	BetterChassis Configuration Template
+]]
+
 local Tune = {}
 
 --[[Misc]]
@@ -28,8 +32,8 @@ Tune.CGHeight = 0.8 -- Center of gravity height (studs relative to median of all
 Tune.WBVisible = false -- Makes the weight brick visible
 
 --Unsprung Weight
-Tune.FWheelDensity = 6 -- Front Wheel Density
-Tune.RWheelDensity = 6 -- Rear Wheel Density
+Tune.FWheelDensity = 0.1 -- Front Wheel Density
+Tune.RWheelDensity = 0.1 -- Rear Wheel Density
 Tune.FWLgcyDensity = 1 -- Front Wheel Density [PGS OFF]
 Tune.RWLgcyDensity = 1 -- Rear Wheel Density [PGS OFF]
 
@@ -84,7 +88,7 @@ Tune.RAnchorOffset = { -- Suspension anchor point offset (relative to center of 
 } -- positive = forward
 
 --Aesthetics
-Tune.SusVisible = false -- Spring Visible
+Tune.SusVisible = true -- Spring Visible
 Tune.WsBVisible = false -- Wishbone Visible
 Tune.SusRadius = 0.2 -- Suspension Coil Radius
 Tune.SusThickness = 0.1 -- Suspension Coil Thickness
@@ -113,7 +117,7 @@ Tune.SteerP = 100000 -- Steering Aggressiveness
 
 --[[Engine]]
 --Torque Curve
-Tune.Horsepower = 380 --	[TORQUE CURVE VISUAL]
+Tune.Horsepower = 180 --	[TORQUE CURVE VISUAL]
 Tune.IdleRPM = 700 --		https://www.desmos.com/calculator/2uo3hqwdhf
 Tune.PeakRPM = 6000 --		Use sliders to manipulate values
 Tune.Redline = 6700 --		Copy and paste slider values into the respective tune values
@@ -126,9 +130,9 @@ Tune.InclineComp = 1.7 -- Torque compensation multiplier for inclines (applies g
 
 --Misc
 Tune.RevAccel = 150 -- RPM acceleration when clutch is off
-Tune.RevDecay = 2000 -- RPM decay when clutch is off
+Tune.RevDecay = 75 -- RPM decay when clutch is off
 Tune.RevBounce = 500 -- RPM kickback from redline
-Tune.IdleThrottle = 0 -- Percent throttle at idle
+Tune.IdleThrottle = 3 -- Percent throttle at idle
 Tune.ClutchTol = 500 -- Clutch engagement threshold (higher = faster response)
 
 --[[Drivetrain]]
@@ -176,6 +180,16 @@ Tune.Ratios = { -- Higher ratio = more torque, Lower ratio = higher top speed
 	0, -- Ratios can also be deleted
 	--[[ 1 ]]
 	3.53, -- Reverse, Neutral, and 1st gear are required
+	--[[ 2 ]]
+	2.04,
+	--[[ 3 ]]
+	1.38,
+	--[[ 4 ]]
+	1.03,
+	--[[ 5 ]]
+	0.81,
+	--[[ 6 ]]
+	0.64,
 }
 Tune.FDMult = 1.5 -- Ratio multiplier (Change this value instead of FinalDrive if car is struggling with torque ; Default = 1)
 
@@ -183,8 +197,8 @@ Tune.FDMult = 1.5 -- Ratio multiplier (Change this value instead of FinalDrive i
 Tune.ABSEnabled = true -- Implements ABS
 Tune.ABSThreshold = 20 -- Slip speed allowed before ABS starts working (in SPS)
 
-Tune.FBrakeForce = 6000 -- Front brake force
-Tune.RBrakeForce = 5000 -- Rear brake force
+Tune.FBrakeForce = 1500 -- Front brake force
+Tune.RBrakeForce = 1000 -- Rear brake force
 Tune.PBrakeForce = 5000 -- Handbrake force
 
 Tune.FLgcyBForce = 15000 -- Front brake force [PGS OFF]
@@ -229,7 +243,7 @@ Tune.Controls = {
 	Clutch = Enum.KeyCode.LeftShift,
 
 	--Handbrake
-	PBrake = Enum.KeyCode.LeftShift,
+	PBrake = Enum.KeyCode.P,
 
 	--Mouse Controls
 	MouseThrottle = Enum.UserInputType.MouseButton1,

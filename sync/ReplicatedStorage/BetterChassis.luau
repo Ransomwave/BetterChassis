@@ -4,6 +4,7 @@
 local BetterChassis = {}
 
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 type SelfType = {
 	car: Model,
@@ -11,14 +12,21 @@ type SelfType = {
 	interface: typeof(script["A-Chassis Interface"]),
 	Init: (SelfType) -> (),
 	Drive: (SelfType) -> (),
+	Destroy: (SelfType) -> (),
 }
 
-function BetterChassis.new(car: Model, config: ModuleScript): SelfType
+BetterChassis.Units = {}
+
+function BetterChassis.new(
+	car: Model,
+	config: ModuleScript,
+	interface: typeof(script["A-Chassis Interface"])?
+): SelfType
 	local self = {}
 
 	self.car = car
 	self.config = config
-	self.interface = nil
+	self.interface = interface
 
 	-- bookkeeping for cleanup
 	self._connections = {} -- Connection objects to disconnect on Destroy
@@ -159,7 +167,11 @@ function BetterChassis:Init()
 	local car = self.car
 	local success, _Tune = pcall(require, self.config)
 	if not success then
-		warn("Failed to load configuration module. Check for errors in the module script.")
+		warn(
+			"Failed to load configuration module. Check for errors in the module script.",
+			_Tune,
+			if RunService:IsServer() then "Server" else "Client"
+		)
 		return
 	end
 
@@ -525,16 +537,21 @@ function BetterChassis:Init()
 	--[[Manage Plugins]]
 
 	interface.Car.Value = car
-	for i, v in pairs(pluginsFolder:GetChildren()) do
-		for _, a in pairs(v:GetChildren()) do
-			if a:IsA("RemoteEvent") or a:IsA("RemoteFunction") then
-				a.Parent = car
-				for _, b in pairs(a:GetChildren()) do
-					if b:IsA("Script") then b.Disabled = false end
+	for _, pluginV in pairs(pluginsFolder:GetChildren()) do
+		for _, event in pairs(pluginV:GetChildren()) do
+			if event:IsA("BaseRemoteEvent") or event:IsA("RemoteFunction") then
+				local eventClone = event:Clone()
+				eventClone.Parent = car
+				for _, script in pairs(eventClone:GetChildren()) do
+					if script:IsA("Script") then script.Disabled = false end
 				end
 			end
 		end
-		v.Parent = interface
+
+		if interface:FindFirstChild(pluginV.Name) then continue end
+
+		local pluginClone = pluginV:Clone()
+		pluginClone.Parent = interface
 	end
 	-- pluginsFolder:Destroy()
 
@@ -628,10 +645,12 @@ function BetterChassis:Init()
 end
 
 function BetterChassis:Drive()
-	if game.RunService:IsServer() then
+	if RunService:IsServer() then
 		warn("Drive function must be called on the client.")
 		return
 	end
+
+	print(`Driving BetterChassis on {self.car.Name}...`)
 
 	self = self :: SelfType
 
@@ -651,11 +670,14 @@ function BetterChassis:Drive()
 	local RunService = game:GetService("RunService")
 	local UserInputService = game:GetService("UserInputService")
 	local car = self.car
-	local success, _Tune = pcall(require, self.config)
-	if not success then
-		warn("Failed to load configuration module. Check for errors in the module script.")
-		return
-	end
+
+	local _Tune = self.config
+
+	-- local success, _Tune = pcall(require, self.config)
+	-- if not success then
+	-- 	warn("Failed to load configuration module. Check for errors in the module script.", _Tune, self.config)
+	-- 	return
+	-- end
 
 	--[[Output Scaling Factor]]
 
@@ -706,9 +728,10 @@ function BetterChassis:Drive()
 	local _InControls = false
 
 	--[[Shutdown]]
+	local driveSeat = car:WaitForChild("DriveSeat")
 
 	do
-		local conn = car.DriveSeat.ChildRemoved:Connect(function(child)
+		local conn = driveSeat.ChildRemoved:Connect(function(child)
 			if child.Name == "SeatWeld" and child:IsA("Weld") then
 				if interface and interface.Parent then pcall(function()
 					interface:Destroy()
@@ -807,7 +830,7 @@ function BetterChassis:Drive()
 				if input.UserInputState == Enum.UserInputState.Begin then
 					_PBrake = not _PBrake
 				elseif input.UserInputState == Enum.UserInputState.End then
-					if car.DriveSeat.Velocity.Magnitude > 5 then _PBrake = false end
+					if driveSeat.Velocity.Magnitude > 5 then _PBrake = false end
 				end
 
 			--Toggle Transmission Mode
@@ -961,20 +984,21 @@ function BetterChassis:Drive()
 	table.insert(self._connections, UserInputService.InputEnded:Connect(dealWithInput))
 
 	if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
-		print(`{player}'s preferred input is touch.`)
+		print(`{script} :: {player}'s preferred input is touch.`)
 
-		local mobileControls = player.PlayerGui.Mobile
-
+		local mobileControls = player.PlayerGui:WaitForChild("Mobile")
 		mobileControls.Enabled = true
 
-		local Buttons = interface:WaitForChild("Buttons")
-		local Left = Buttons:WaitForChild("Left")
-		local Right = Buttons:WaitForChild("Right")
-		local Brake = Buttons:WaitForChild("Brake")
-		local Gas = Buttons:WaitForChild("Gas")
-		local Handbrake = Buttons:WaitForChild("Handbrake")
+		local buttons = mobileControls:WaitForChild("Buttons")
+		local accelerationButtons = buttons:WaitForChild("AccelerationButtons")
+		local directionButtons = buttons:WaitForChild("DirectionButtons")
 
-		if UserInputService.TouchEnabled and not UserInputService.MouseEnabled then Buttons.Visible = true end
+		local accelerate = accelerationButtons:WaitForChild("Accelerate")
+		local decelerate = accelerationButtons:WaitForChild("Decelerate")
+		local left = directionButtons:WaitForChild("Left")
+		local right = directionButtons:WaitForChild("Right")
+
+		if UserInputService.TouchEnabled and not UserInputService.MouseEnabled then buttons.Visible = true end
 		local function LeftTurn(Touch, GPE)
 			if Touch.UserInputState == Enum.UserInputState.Begin then
 				_GSteerT = -1
@@ -988,8 +1012,8 @@ function BetterChassis:Drive()
 				_SteerL = false
 			end
 		end
-		table.insert(self._connections, Left.InputBegan:Connect(LeftTurn))
-		table.insert(self._connections, Left.InputEnded:Connect(LeftTurn))
+		left.InputBegan:Connect(LeftTurn)
+		left.InputEnded:Connect(LeftTurn)
 		--Left.InputChanged:Connect(LeftTurn)
 
 		local function RightTurn(Touch, GPE)
@@ -1005,8 +1029,8 @@ function BetterChassis:Drive()
 				_SteerR = false
 			end
 		end
-		table.insert(self._connections, Right.InputBegan:Connect(RightTurn))
-		table.insert(self._connections, Right.InputEnded:Connect(RightTurn))
+		right.InputBegan:Connect(RightTurn)
+		right.InputEnded:Connect(RightTurn)
 		--Right.InputChanged:Connect(RightTurn)
 
 		local function TouchThrottle(input, GPE)
@@ -1016,8 +1040,8 @@ function BetterChassis:Drive()
 				_GThrot = _Tune.IdleThrottle / 100
 			end
 		end
-		table.insert(self._connections, Gas.InputBegan:Connect(TouchThrottle))
-		table.insert(self._connections, Gas.InputEnded:Connect(TouchThrottle))
+		accelerate.InputBegan:Connect(TouchThrottle)
+		accelerate.InputEnded:Connect(TouchThrottle)
 		--Gas.InputChanged:Connect(TouchThrottle)
 
 		local function TouchBrake(input, GPE)
@@ -1027,19 +1051,9 @@ function BetterChassis:Drive()
 				_GBrake = 0
 			end
 		end
-		table.insert(self._connections, Brake.InputBegan:Connect(TouchBrake))
-		table.insert(self._connections, Brake.InputEnded:Connect(TouchBrake))
+		decelerate.InputBegan:Connect(TouchBrake)
+		decelerate.InputEnded:Connect(TouchBrake)
 		--Brake.InputChanged:Connect(TouchBrake)
-
-		local function TouchHandbrake(input, GPE)
-			if input.UserInputState == Enum.UserInputState.Begin then
-				_PBrake = not _PBrake
-			elseif input.UserInputState == Enum.UserInputState.End then
-				if car.DriveSeat.Velocity.Magnitude > 5 then _PBrake = false end
-			end
-		end
-		table.insert(self._connections, Handbrake.InputBegan:Connect(TouchHandbrake))
-		table.insert(self._connections, Handbrake.InputEnded:Connect(TouchHandbrake))
 	end
 
 	--[[Drivetrain Initialize]]
@@ -1108,7 +1122,7 @@ function BetterChassis:Drive()
 		end
 
 		--Steer Decay Multiplier
-		local sDecay = (1 - math.min(car.DriveSeat.Velocity.Magnitude / _Tune.SteerDecay, 1 - (_Tune.MinSteer / 100)))
+		local sDecay = (1 - math.min(driveSeat.Velocity.Magnitude / _Tune.SteerDecay, 1 - (_Tune.MinSteer / 100)))
 
 		--Apply Steering
 		for i, v in pairs(car.Wheels:GetChildren()) do
@@ -1248,7 +1262,7 @@ function BetterChassis:Drive()
 			else
 				_HP, _OutTorque = GetCurve(_RPM, _CGear)
 			end
-			local iComp = car.DriveSeat.CFrame.lookVector.y * cGrav
+			local iComp = driveSeat.CFrame.lookVector.y * cGrav
 			if _CGear == -1 then iComp = -iComp end
 			_OutTorque = _OutTorque * math.max(1, (1 + iComp))
 		else
@@ -1260,7 +1274,7 @@ function BetterChassis:Drive()
 			_ClutchOn = true
 			if _CGear == 0 then _CGear = 1 end
 			if _CGear >= 1 then
-				if _CGear == 1 and _GBrake > 0 and car.DriveSeat.Velocity.Magnitude < 20 then
+				if _CGear == 1 and _GBrake > 0 and driveSeat.Velocity.Magnitude < 20 then
 					_CGear = -1
 				else
 					if _Tune.AutoShiftMode == "RPM" then
@@ -1276,12 +1290,12 @@ function BetterChassis:Drive()
 						end
 					else
 						if
-							car.DriveSeat.Velocity.Magnitude
+							driveSeat.Velocity.Magnitude
 							> math.ceil(wDRatio * (_Tune.PeakRPM + _Tune.AutoUpThresh) / _Tune.Ratios[_CGear + 2] / fFD)
 						then
 							_CGear = math.min(_CGear + 1, #_Tune.Ratios - 2)
 						elseif
-							car.DriveSeat.Velocity.Magnitude
+							driveSeat.Velocity.Magnitude
 							< math.ceil(
 								wDRatio * (_Tune.PeakRPM - _Tune.AutoDownThresh) / _Tune.Ratios[_CGear + 1] / fFD
 							)
@@ -1291,9 +1305,7 @@ function BetterChassis:Drive()
 					end
 				end
 			else
-				if _GThrot - (_Tune.IdleThrottle / 100) > 0 and car.DriveSeat.Velocity.Magnitude < 20 then
-					_CGear = 1
-				end
+				if _GThrot - (_Tune.IdleThrottle / 100) > 0 and driveSeat.Velocity.Magnitude < 20 then _CGear = 1 end
 			end
 		end
 
@@ -1399,8 +1411,8 @@ function BetterChassis:Drive()
 					(
 						_Tune.Config ~= "FWD"
 						and (
-							((v.Name == "FL" or v.Name == "FR") and car.DriveSeat.Velocity.Magnitude < 20)
-							or ((v.Name == "RR" or v.Name == "RL") and car.DriveSeat.Velocity.Magnitude >= 20)
+							((v.Name == "FL" or v.Name == "FR") and driveSeat.Velocity.Magnitude < 20)
+							or ((v.Name == "RR" or v.Name == "RL") and driveSeat.Velocity.Magnitude >= 20)
 						)
 					) or (_Tune.Config == "FWD" and (v.Name == "RR" or v.Name == "RL"))
 				)
@@ -1502,14 +1514,14 @@ function BetterChassis:Drive()
 
 	local function Flip()
 		--Detect Orientation
-		if (car.DriveSeat.CFrame * CFrame.Angles(math.pi / 2, 0, 0)).lookVector.y > 0.1 or FlipDB then
+		if (driveSeat.CFrame * CFrame.Angles(math.pi / 2, 0, 0)).lookVector.y > 0.1 or FlipDB then
 			FlipWait = tick()
 
 		--Apply Flip
 		else
 			if tick() - FlipWait >= 3 then
 				FlipDB = true
-				local gyro = car.DriveSeat.Flip
+				local gyro = driveSeat.Flip
 				gyro.maxTorque = Vector3.new(10000, 0, 10000)
 				gyro.P = 3000
 				gyro.D = 500
@@ -1549,7 +1561,7 @@ function BetterChassis:Drive()
 		interface.Values.Throttle.Value = _GThrot
 		interface.Values.Brake.Value = _GBrake
 		interface.Values.SteerC.Value = _GSteerC
-			* (1 - math.min(car.DriveSeat.Velocity.Magnitude / _Tune.SteerDecay, 1 - (_Tune.MinSteer / 100)))
+			* (1 - math.min(driveSeat.Velocity.Magnitude / _Tune.SteerDecay, 1 - (_Tune.MinSteer / 100)))
 		interface.Values.SteerT.Value = _GSteerT
 		interface.Values.PBrake.Value = _PBrake
 		interface.Values.TCS.Value = _TCS
@@ -1557,7 +1569,7 @@ function BetterChassis:Drive()
 		interface.Values.ABS.Value = _ABS
 		interface.Values.ABSActive.Value = _ABSActive
 		interface.Values.MouseSteerOn.Value = _MSteer
-		interface.Values.Velocity.Value = car.DriveSeat.Velocity
+		interface.Values.Velocity.Value = driveSeat.Velocity
 	end)
 	table.insert(self._connections, steppedConn)
 
