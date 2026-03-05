@@ -11,9 +11,7 @@
           "name": "BetterChassis",
           "className": "ModuleScript",
           "guid": "518430",
-          "filePaths": [
-            "sync/ReplicatedStorage/BetterChassis.luau"
-          ],
+          "filePaths": ["sync/ReplicatedStorage/BetterChassis.luau"],
           "children": [
             {
               "name": "A-Chassis Interface",
@@ -184,20 +182,889 @@
           ]
         },
         {
+          "name": "Car",
+          "className": "Model",
+          "guid": "780485",
+          "children": [
+            {
+              "name": "Body",
+              "className": "Model",
+              "guid": "780500",
+              "properties": {
+                "WorldPivot": {
+                  "components": [
+                    -73.70108032226562, 0.000005602836608886719,
+                    4.898406982421875, 1, 4.296203925946429e-8,
+                    4.371138828673793e-8, -4.296203925946429e-8, 1,
+                    2.0832355840383343e-9, -4.371138828673793e-8,
+                    -2.0832373603951737e-9, 1
+                  ],
+                  "__type": "CFrame"
+                }
+              }
+            },
+            {
+              "name": "Config",
+              "className": "ModuleScript",
+              "guid": "792792",
+              "filePaths": ["sync/ReplicatedStorage/Car/Config.luau"]
+            },
+            {
+              "name": "DriveSeat",
+              "className": "VehicleSeat",
+              "guid": "780627",
+              "properties": {
+                "TopParamA": 0,
+                "Anchored": true,
+                "FrontSurfaceInput": {
+                  "__type": "EnumItem",
+                  "enumType": "InputType",
+                  "name": "Constant"
+                },
+                "TurnSpeed": 0,
+                "Material": {
+                  "__type": "EnumItem",
+                  "enumType": "Material",
+                  "name": "SmoothPlastic"
+                },
+                "Size": {
+                  "y": 1,
+                  "__type": "Vector3",
+                  "x": 2,
+                  "z": 2
+                },
+                "FrontSurface": {
+                  "__type": "EnumItem",
+                  "enumType": "SurfaceType",
+                  "name": "Motor"
+                },
+                "BottomSurface": {
+                  "__type": "EnumItem",
+                  "enumType": "SurfaceType",
+                  "name": "Smooth"
+                },
+                "CanCollide": false,
+                "Torque": 0,
+                "CustomPhysicalProperties": {
+                  "density": 0.009999999776482582,
+                  "__type": "PhysicalProperties",
+                  "elasticity": 0,
+                  "frictionWeight": 1,
+                  "elasticityWeight": 1,
+                  "friction": 0.30000001192092896
+                },
+                "size": {
+                  "y": 1,
+                  "__type": "Vector3",
+                  "x": 2,
+                  "z": 2
+                },
+                "FrontParamA": -0.10000000149011612,
+                "MaxSpeed": 0,
+                "Position": {
+                  "y": 1.2996948957443237,
+                  "__type": "Vector3",
+                  "x": -21.999996185302734,
+                  "z": 5
+                },
+                "CFrame": {
+                  "components": [
+                    -21.999996185302734, 1.2996948957443237, 5, 1,
+                    4.48273063113902e-8, -7.549902392156582e-8,
+                    -4.48273063113902e-8, 1, 6.493660720252592e-9,
+                    7.549902392156582e-8, -6.4936562793604935e-9, 1
+                  ],
+                  "__type": "CFrame"
+                },
+                "FrontParamB": 0.10000000149011612,
+                "TopParamB": 0,
+                "TopSurface": {
+                  "__type": "EnumItem",
+                  "enumType": "SurfaceType",
+                  "name": "Hinge"
+                }
+              }
+            },
+            {
+              "name": "Misc",
+              "className": "Model",
+              "guid": "780486",
+              "properties": {
+                "WorldPivot": {
+                  "components": [
+                    -73.70108032226562, 0.000005602836608886719,
+                    4.898406982421875, 1, 4.296203925946429e-8,
+                    4.371138828673793e-8, -4.296203925946429e-8, 1,
+                    2.0832355840383343e-9, -4.371138828673793e-8,
+                    -2.0832373603951737e-9, 1
+                  ],
+                  "__type": "CFrame"
+                }
+              }
+            },
+            {
+              "name": "Wheels",
+              "className": "Model",
+              "guid": "780487",
+              "children": [
+                {
+                  "name": "FL",
+                  "className": "Part",
+                  "guid": "780520",
+                  "children": [
+                    {
+                      "name": "Mesh",
+                      "className": "CylinderMesh",
+                      "guid": "780438",
+                      "properties": {
+                        "Scale": {
+                          "y": 0.5,
+                          "__type": "Vector3",
+                          "x": 1,
+                          "z": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Parts",
+                      "className": "Model",
+                      "guid": "780489",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "SuspensionFixed",
+                      "className": "Model",
+                      "guid": "780490",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "WheelFixed",
+                      "className": "Model",
+                      "guid": "780488",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    }
+                  ],
+                  "properties": {
+                    "Color": {
+                      "b": 0.06666667014360428,
+                      "__type": "Color3",
+                      "g": 0.06666667014360428,
+                      "r": 0.06666667014360428
+                    },
+                    "CFrame": {
+                      "components": [
+                        -24.995357513427734, 1.3000000715255737,
+                        0.0077667236328125, 0, -1, -9.106111741007591e-17, 0,
+                        -9.106111741007591e-17, -1, 1, 0, 0
+                      ],
+                      "__type": "CFrame"
+                    },
+                    "RightSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "BottomParamA": 0,
+                    "BottomParamB": 0,
+                    "shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "Size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "Transparency": 0.5,
+                    "FrontParamB": 0,
+                    "BottomSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Material": {
+                      "__type": "EnumItem",
+                      "enumType": "Material",
+                      "name": "SmoothPlastic"
+                    },
+                    "Anchored": true,
+                    "FrontSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "CustomPhysicalProperties": {
+                      "density": 0.10000000149011612,
+                      "__type": "PhysicalProperties",
+                      "elasticity": 0,
+                      "frictionWeight": 1,
+                      "elasticityWeight": 1,
+                      "friction": 0.699999988079071
+                    },
+                    "LeftSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Rotation": {
+                      "y": 0,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": 90
+                    },
+                    "FrontParamA": 0,
+                    "BrickColor": {
+                      "number": 1003,
+                      "__type": "BrickColor"
+                    },
+                    "Position": {
+                      "y": 1.3000000715255737,
+                      "__type": "Vector3",
+                      "x": -24.995357513427734,
+                      "z": 0.0077667236328125
+                    },
+                    "Orientation": {
+                      "y": -90,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": 0
+                    },
+                    "BackSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "TopSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    }
+                  }
+                },
+                {
+                  "name": "FR",
+                  "className": "Part",
+                  "guid": "780521",
+                  "children": [
+                    {
+                      "name": "Mesh",
+                      "className": "CylinderMesh",
+                      "guid": "780439",
+                      "properties": {
+                        "Scale": {
+                          "y": 0.5,
+                          "__type": "Vector3",
+                          "x": 1,
+                          "z": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Parts",
+                      "className": "Model",
+                      "guid": "780491",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "SuspensionFixed",
+                      "className": "Model",
+                      "guid": "780493",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "WheelFixed",
+                      "className": "Model",
+                      "guid": "780492",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    }
+                  ],
+                  "properties": {
+                    "Color": {
+                      "b": 0.06666667014360428,
+                      "__type": "Color3",
+                      "g": 0.06666667014360428,
+                      "r": 0.06666667014360428
+                    },
+                    "CFrame": {
+                      "components": [
+                        -19.00460433959961, 1.3000000715255737,
+                        0.0077972412109375, -8.74227694680485e-8, 1,
+                        -8.758428293731413e-8, -3.552713678800501e-15,
+                        -8.758428293731413e-8, -1, -1, -8.74227694680485e-8,
+                        1.1102230246251565e-14
+                      ],
+                      "__type": "CFrame"
+                    },
+                    "RightSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "BottomParamA": 0,
+                    "BottomParamB": 0,
+                    "shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "Size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "Transparency": 0.5,
+                    "FrontParamB": 0,
+                    "BottomSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Material": {
+                      "__type": "EnumItem",
+                      "enumType": "Material",
+                      "name": "SmoothPlastic"
+                    },
+                    "Anchored": true,
+                    "FrontSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "CustomPhysicalProperties": {
+                      "density": 0.10000000149011612,
+                      "__type": "PhysicalProperties",
+                      "elasticity": 0,
+                      "frictionWeight": 1,
+                      "elasticityWeight": 1,
+                      "friction": 0.699999988079071
+                    },
+                    "LeftSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Rotation": {
+                      "y": 0,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": -90
+                    },
+                    "FrontParamA": 0,
+                    "BrickColor": {
+                      "number": 1003,
+                      "__type": "BrickColor"
+                    },
+                    "Position": {
+                      "y": 1.3000000715255737,
+                      "__type": "Vector3",
+                      "x": -19.00460433959961,
+                      "z": 0.0077972412109375
+                    },
+                    "Orientation": {
+                      "y": 90,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": 0
+                    },
+                    "BackSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "TopSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    }
+                  }
+                },
+                {
+                  "name": "RL",
+                  "className": "Part",
+                  "guid": "780522",
+                  "children": [
+                    {
+                      "name": "Mesh",
+                      "className": "CylinderMesh",
+                      "guid": "780440",
+                      "properties": {
+                        "Scale": {
+                          "y": 0.5,
+                          "__type": "Vector3",
+                          "x": 1,
+                          "z": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Parts",
+                      "className": "Model",
+                      "guid": "780495",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "SuspensionFixed",
+                      "className": "Model",
+                      "guid": "780496",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "WheelFixed",
+                      "className": "Model",
+                      "guid": "780494",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    }
+                  ],
+                  "properties": {
+                    "Color": {
+                      "b": 0.06666667014360428,
+                      "__type": "Color3",
+                      "g": 0.06666667014360428,
+                      "r": 0.06666667014360428
+                    },
+                    "CFrame": {
+                      "components": [
+                        -24.995357513427734, 1.3000000715255737,
+                        9.992256164550781, 0, -1, -9.106111741007591e-17, 0,
+                        -9.106111741007591e-17, -1, 1, 0, 0
+                      ],
+                      "__type": "CFrame"
+                    },
+                    "RightSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "BottomParamA": 0,
+                    "BottomParamB": 0,
+                    "shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "Size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "Transparency": 0.5,
+                    "FrontParamB": 0,
+                    "BottomSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Material": {
+                      "__type": "EnumItem",
+                      "enumType": "Material",
+                      "name": "SmoothPlastic"
+                    },
+                    "Anchored": true,
+                    "FrontSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "CustomPhysicalProperties": {
+                      "density": 0.10000000149011612,
+                      "__type": "PhysicalProperties",
+                      "elasticity": 0,
+                      "frictionWeight": 1,
+                      "elasticityWeight": 1,
+                      "friction": 0.699999988079071
+                    },
+                    "LeftSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Rotation": {
+                      "y": 0,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": 90
+                    },
+                    "FrontParamA": 0,
+                    "BrickColor": {
+                      "number": 1003,
+                      "__type": "BrickColor"
+                    },
+                    "Position": {
+                      "y": 1.3000000715255737,
+                      "__type": "Vector3",
+                      "x": -24.995357513427734,
+                      "z": 9.992256164550781
+                    },
+                    "Orientation": {
+                      "y": -90,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": 0
+                    },
+                    "BackSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "TopSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    }
+                  }
+                },
+                {
+                  "name": "RR",
+                  "className": "Part",
+                  "guid": "780523",
+                  "children": [
+                    {
+                      "name": "Mesh",
+                      "className": "CylinderMesh",
+                      "guid": "780441",
+                      "properties": {
+                        "Scale": {
+                          "y": 0.5,
+                          "__type": "Vector3",
+                          "x": 1,
+                          "z": 1
+                        }
+                      }
+                    },
+                    {
+                      "name": "Parts",
+                      "className": "Model",
+                      "guid": "780497",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "SuspensionFixed",
+                      "className": "Model",
+                      "guid": "780499",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    },
+                    {
+                      "name": "WheelFixed",
+                      "className": "Model",
+                      "guid": "780498",
+                      "properties": {
+                        "WorldPivot": {
+                          "components": [
+                            -73.70108032226562, 0.000005602836608886719,
+                            4.898406982421875, 1, 4.296203925946429e-8,
+                            4.371138828673793e-8, -4.296203925946429e-8, 1,
+                            2.0832355840383343e-9, -4.371138828673793e-8,
+                            -2.0832373603951737e-9, 1
+                          ],
+                          "__type": "CFrame"
+                        }
+                      }
+                    }
+                  ],
+                  "properties": {
+                    "Color": {
+                      "b": 0.06666667014360428,
+                      "__type": "Color3",
+                      "g": 0.06666667014360428,
+                      "r": 0.06666667014360428
+                    },
+                    "CFrame": {
+                      "components": [
+                        -19.00460433959961, 1.3000000715255737,
+                        9.992286682128906, -8.74227694680485e-8, 1,
+                        -8.758428293731413e-8, -3.552713678800501e-15,
+                        -8.758428293731413e-8, -1, -1, -8.74227694680485e-8,
+                        1.1102230246251565e-14
+                      ],
+                      "__type": "CFrame"
+                    },
+                    "RightSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "BottomParamA": 0,
+                    "BottomParamB": 0,
+                    "shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "Size": {
+                      "y": 2.5999999046325684,
+                      "__type": "Vector3",
+                      "x": 2.5999999046325684,
+                      "z": 2.5999999046325684
+                    },
+                    "Transparency": 0.5,
+                    "FrontParamB": 0,
+                    "BottomSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Material": {
+                      "__type": "EnumItem",
+                      "enumType": "Material",
+                      "name": "SmoothPlastic"
+                    },
+                    "Anchored": true,
+                    "FrontSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "CustomPhysicalProperties": {
+                      "density": 0.10000000149011612,
+                      "__type": "PhysicalProperties",
+                      "elasticity": 0,
+                      "frictionWeight": 1,
+                      "elasticityWeight": 1,
+                      "friction": 0.699999988079071
+                    },
+                    "LeftSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Rotation": {
+                      "y": 0,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": -90
+                    },
+                    "FrontParamA": 0,
+                    "BrickColor": {
+                      "number": 1003,
+                      "__type": "BrickColor"
+                    },
+                    "Position": {
+                      "y": 1.3000000715255737,
+                      "__type": "Vector3",
+                      "x": -19.00460433959961,
+                      "z": 9.992286682128906
+                    },
+                    "Orientation": {
+                      "y": 90,
+                      "__type": "Vector3",
+                      "x": 90,
+                      "z": 0
+                    },
+                    "BackSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    },
+                    "Shape": {
+                      "__type": "EnumItem",
+                      "enumType": "PartType",
+                      "name": "Ball"
+                    },
+                    "TopSurface": {
+                      "__type": "EnumItem",
+                      "enumType": "SurfaceType",
+                      "name": "SmoothNoOutlines"
+                    }
+                  }
+                }
+              ],
+              "properties": {
+                "WorldPivot": {
+                  "components": [
+                    -21.999980926513672, 1.3000010251998901, 5.000022888183594,
+                    0, -1, -9.106111741007591e-17, 0, -9.106111741007591e-17,
+                    -1, 1, 0, 0
+                  ],
+                  "__type": "CFrame"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "WorldPivot": {
+              "components": [
+                -21.999980926513672, 1.3000010251998901, 5.000022888183594, 0,
+                -1, 0, 0, 0, -1, 1, 0, 0
+              ],
+              "__type": "CFrame"
+            }
+          }
+        },
+        {
           "name": "ChassisUtils",
           "className": "ModuleScript",
           "guid": "774349",
-          "filePaths": [
-            "sync/ReplicatedStorage/ChassisUtils.luau"
-          ]
+          "filePaths": ["sync/ReplicatedStorage/ChassisUtils.luau"]
         },
         {
           "name": "ConfigTemplate",
           "className": "ModuleScript",
           "guid": "785057",
-          "filePaths": [
-            "sync/ReplicatedStorage/ConfigTemplate.luau"
-          ]
+          "filePaths": ["sync/ReplicatedStorage/ConfigTemplate.luau"]
         }
       ],
       "properties": {
@@ -207,7 +1074,7 @@
   ],
   "_azul": {
     "packVersion": 1,
-    "packedAt": "2026-03-05T02:52:38.933Z",
+    "packedAt": "2026-03-05T03:00:45.014Z",
     "mode": "all"
   }
 }
