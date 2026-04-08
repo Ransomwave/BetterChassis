@@ -6,22 +6,22 @@ local BetterChassis = {}
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-type SelfType = {
+local COLLISION_GROUP_NAME = "BetterChassis"
+
+local isStudio = RunService:IsStudio()
+
+export type Chassis = {
 	car: Model,
 	config: ModuleScript,
 	interface: typeof(script["A-Chassis Interface"]),
-	Init: (SelfType) -> (),
-	Drive: (SelfType) -> (),
-	Destroy: (SelfType) -> (),
+	Init: (Chassis) -> (),
+	Drive: (Chassis) -> (),
+	Destroy: (Chassis) -> (),
 }
 
 BetterChassis.Units = {}
 
-function BetterChassis.new(
-	car: Model,
-	config: ModuleScript,
-	interface: typeof(script["A-Chassis Interface"])?
-): SelfType
+function BetterChassis.new(car: Model, config: ModuleScript, interface: typeof(script["A-Chassis Interface"])?): Chassis
 	local self = {}
 
 	self.car = car
@@ -36,7 +36,7 @@ function BetterChassis.new(
 		__index = BetterChassis,
 	})
 
-	return (self :: any) :: SelfType
+	return (self :: any) :: Chassis
 end
 
 -- Utilities
@@ -67,6 +67,17 @@ local function unAnchor(a)
 	if a:IsA("BasePart") then a.Anchored = false end
 	for i, v in pairs(a:GetChildren()) do
 		unAnchor(v)
+	end
+end
+
+local function setModelNetworkOwner(model: Instance, owner: Player?)
+	for _, descendant in model:GetDescendants() do
+		if descendant:IsA("BasePart") and not descendant.Anchored then
+			pcall(function()
+				descendant:SetNetworkOwner(owner)
+				-- print(`Set network owner of {descendant:GetFullName()} to {descendant:GetNetworkOwner()}`)
+			end)
+		end
 	end
 end
 
@@ -150,7 +161,7 @@ end
 function BetterChassis:Init()
 	print(`Initializing BetterChassis on {self.car.Name}...`)
 
-	self = self :: SelfType
+	self = self :: Chassis
 
 	--[[Weld functions]]
 
@@ -159,7 +170,8 @@ function BetterChassis:Init()
 
 	--[[Initialize]]
 
-	local interface = script:WaitForChild("A-Chassis Interface")
+	local interfaceTemplate = script:WaitForChild("A-Chassis Interface")
+	local interface = interfaceTemplate:Clone()
 	self.interface = interface
 
 	local pluginsFolder = script:WaitForChild("Plugins")
@@ -181,7 +193,9 @@ function BetterChassis:Init()
 	local weightScaling = _Tune.WeightScaling
 	if not workspace:PGSIsEnabled() then weightScaling = _Tune.LegacyScaling end
 
-	local Drive = car.Wheels:GetChildren()
+	local carWheels = car:WaitForChild("Wheels")
+
+	local Drive = carWheels:GetChildren()
 
 	dReduce(car)
 
@@ -286,9 +300,8 @@ function BetterChassis:Init()
 		arm.Size = Vector3.new(_Tune.AxleSize, _Tune.AxleSize, _Tune.AxleSize)
 		arm.CFrame = (v.CFrame * CFrame.new(0, _Tune.StAxisOffset, 0)) * CFrame.Angles(-math.pi / 2, -math.pi / 2, 0)
 		arm.CustomPhysicalProperties = PhysicalProperties.new(_Tune.AxleDensity, 0, 0, 100, 100)
-		arm.TopSurface = Enum.SurfaceType.Smooth
-		arm.BottomSurface = Enum.SurfaceType.Smooth
 		arm.Transparency = 1
+		arm.CollisionGroup = COLLISION_GROUP_NAME
 
 		--Create Wheel Spindle
 		local base = arm:Clone()
@@ -485,8 +498,7 @@ function BetterChassis:Init()
 		weightB.Anchored = true
 		weightB.CanCollide = false
 		weightB.BrickColor = BrickColor.new("Really black")
-		weightB.TopSurface = Enum.SurfaceType.Smooth
-		weightB.BottomSurface = Enum.SurfaceType.Smooth
+		weightB.CollisionGroup = COLLISION_GROUP_NAME
 		if _Tune.WBVisible then
 			weightB.Transparency = 0.75
 		else
@@ -533,6 +545,9 @@ function BetterChassis:Init()
 	--Unanchor
 	task.wait()
 	unAnchor(car)
+
+	-- Keep server ownership until a driver sits to avoid ownership drift while spawning.
+	setModelNetworkOwner(car, nil)
 
 	--[[Manage Plugins]]
 
@@ -607,7 +622,9 @@ function BetterChassis:Init()
 			then
 				--Distribute Client Interface
 				local p = Players:GetPlayerFromCharacter(child.Part1.Parent)
-				car.DriveSeat:SetNetworkOwner(p)
+				-- task.delay(0.1, function()
+				setModelNetworkOwner(car, p)
+				-- end)
 				local g = interface:Clone()
 				g.Parent = p.PlayerGui
 			end
@@ -616,32 +633,12 @@ function BetterChassis:Init()
 	end
 
 	--Driver Leave
-	-- do
-	-- 	local conn = car.DriveSeat.ChildRemoved:Connect(function(child)
-	-- 		if child.Name == "SeatWeld" and child:IsA("Weld") then
-	-- 			--Remove Flip Force
-	-- 			if car.DriveSeat:FindFirstChild("Flip") ~= nil then car.DriveSeat.Flip.MaxTorque = Vector3.new() end
-
-	-- 			--Remove Wheel Force
-	-- 			for i, v in pairs(car.Wheels:GetChildren()) do
-	-- 				if v:FindFirstChild("#AV") ~= nil then
-	-- 					if v["#AV"]:IsA("BodyAngularVelocity") then
-	-- 						if v["#AV"].AngularVelocity.Magnitude > 0 then
-	-- 							v["#AV"].AngularVelocity = Vector3.new()
-	-- 							v["#AV"].MaxTorque = Vector3.new()
-	-- 						end
-	-- 					else
-	-- 						if v["#AV"].AngularVelocity > 0 then
-	-- 							v["#AV"].AngularVelocity = 0
-	-- 							v["#AV"].MotorMaxTorque = 0
-	-- 						end
-	-- 					end
-	-- 				end
-	-- 			end
-	-- 		end
-	-- 	end)
-	-- 	table.insert(self._connections, conn)
-	-- end
+	do
+		local conn = car.DriveSeat.ChildRemoved:Connect(function(child)
+			if child.Name == "SeatWeld" and child:IsA("Weld") then setModelNetworkOwner(car, nil) end
+		end)
+		table.insert(self._connections, conn)
+	end
 end
 
 function BetterChassis:Drive()
@@ -652,7 +649,7 @@ function BetterChassis:Drive()
 
 	print(`Driving BetterChassis on {self.car.Name}...`)
 
-	self = self :: SelfType
+	self = self :: Chassis
 
 	--[[START]]
 
@@ -671,13 +668,11 @@ function BetterChassis:Drive()
 	local UserInputService = game:GetService("UserInputService")
 	local car = self.car
 
-	local _Tune = self.config
-
-	-- local success, _Tune = pcall(require, self.config)
-	-- if not success then
-	-- 	warn("Failed to load configuration module. Check for errors in the module script.", _Tune, self.config)
-	-- 	return
-	-- end
+	local success, _Tune = pcall(require, self.config)
+	if not success then
+		warn("Failed to load configuration module. Check for errors in the module script.", _Tune, self.config)
+		return
+	end
 
 	--[[Output Scaling Factor]]
 
@@ -782,6 +777,8 @@ function BetterChassis:Drive()
 
 	--Input Handler
 	local function dealWithInput(input, IsRobloxFunction)
+		if IsRobloxFunction then return end
+
 		if (UserInputService:GetFocusedTextBox() == nil) and not _InControls then --Ignore when UI Focus
 			--Shift Down [Manual Transmission]
 			if
@@ -1092,61 +1089,64 @@ function BetterChassis:Drive()
 	--[[Steering]]
 
 	local function Steering()
-		--Mouse Steer
-		if _MSteer then
-			local msWidth = math.max(1, mouse.ViewSizeX * _Tune.Peripherals.MSteerWidth / 200)
-			local mdZone = _Tune.Peripherals.MSteerDZone / 100
-			local mST = ((mouse.X - mouse.ViewSizeX / 2) / msWidth)
-			if math.abs(mST) <= mdZone then
-				_GSteerT = 0
-			else
-				_GSteerT = (math.max(math.min((math.abs(mST) - mdZone), (1 - mdZone)), 0) / (1 - mdZone))
-						^ _Tune.MSteerExp
-					* (mST / math.abs(mST))
-			end
-		end
-
-		--Interpolate Steering
-		if _GSteerC < _GSteerT then
-			if _GSteerC < 0 then
-				_GSteerC = math.min(_GSteerT, _GSteerC + _Tune.ReturnSpeed)
-			else
-				_GSteerC = math.min(_GSteerT, _GSteerC + _Tune.SteerSpeed)
-			end
-		else
-			if _GSteerC > 0 then
-				_GSteerC = math.max(_GSteerT, _GSteerC - _Tune.ReturnSpeed)
-			else
-				_GSteerC = math.max(_GSteerT, _GSteerC - _Tune.SteerSpeed)
-			end
-		end
-
-		--Steer Decay Multiplier
-		local sDecay = (1 - math.min(driveSeat.Velocity.Magnitude / _Tune.SteerDecay, 1 - (_Tune.MinSteer / 100)))
-
-		--Apply Steering
-		for i, v in pairs(car.Wheels:GetChildren()) do
-			if v.Name == "F" then
-				v.Arm.Steer.CFrame = car.Wheels.F.Base.CFrame
-					* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerInner * sDecay), 0)
-			elseif v.Name == "FL" then
-				if _GSteerC >= 0 then
-					v.Arm.Steer.CFrame = car.Wheels.FL.Base.CFrame
-						* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerOuter * sDecay), 0)
+		local success, result = pcall(function()
+			--Mouse Steer
+			if _MSteer then
+				local msWidth = math.max(1, mouse.ViewSizeX * _Tune.Peripherals.MSteerWidth / 200)
+				local mdZone = _Tune.Peripherals.MSteerDZone / 100
+				local mST = ((mouse.X - mouse.ViewSizeX / 2) / msWidth)
+				if math.abs(mST) <= mdZone then
+					_GSteerT = 0
 				else
-					v.Arm.Steer.CFrame = car.Wheels.FL.Base.CFrame
-						* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerInner * sDecay), 0)
-				end
-			elseif v.Name == "FR" then
-				if _GSteerC >= 0 then
-					v.Arm.Steer.CFrame = car.Wheels.FR.Base.CFrame
-						* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerInner * sDecay), 0)
-				else
-					v.Arm.Steer.CFrame = car.Wheels.FR.Base.CFrame
-						* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerOuter * sDecay), 0)
+					_GSteerT = (math.max(math.min((math.abs(mST) - mdZone), (1 - mdZone)), 0) / (1 - mdZone))
+							^ _Tune.MSteerExp
+						* (mST / math.abs(mST))
 				end
 			end
-		end
+
+			--Interpolate Steering
+			if _GSteerC < _GSteerT then
+				if _GSteerC < 0 then
+					_GSteerC = math.min(_GSteerT, _GSteerC + _Tune.ReturnSpeed)
+				else
+					_GSteerC = math.min(_GSteerT, _GSteerC + _Tune.SteerSpeed)
+				end
+			else
+				if _GSteerC > 0 then
+					_GSteerC = math.max(_GSteerT, _GSteerC - _Tune.ReturnSpeed)
+				else
+					_GSteerC = math.max(_GSteerT, _GSteerC - _Tune.SteerSpeed)
+				end
+			end
+
+			--Steer Decay Multiplier
+			local sDecay = (1 - math.min(driveSeat.Velocity.Magnitude / _Tune.SteerDecay, 1 - (_Tune.MinSteer / 100)))
+
+			--Apply Steering
+			for _, v in pairs(car.Wheels:GetChildren()) do
+				if v.Name == "F" then
+					v.Arm.Steer.CFrame = car.Wheels.F.Base.CFrame
+						* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerInner * sDecay), 0)
+				elseif v.Name == "FL" then
+					if _GSteerC >= 0 then
+						v.Arm.Steer.CFrame = car.Wheels.FL.Base.CFrame
+							* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerOuter * sDecay), 0)
+					else
+						v.Arm.Steer.CFrame = car.Wheels.FL.Base.CFrame
+							* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerInner * sDecay), 0)
+					end
+				elseif v.Name == "FR" then
+					if _GSteerC >= 0 then
+						v.Arm.Steer.CFrame = car.Wheels.FR.Base.CFrame
+							* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerInner * sDecay), 0)
+					else
+						v.Arm.Steer.CFrame = car.Wheels.FR.Base.CFrame
+							* CFrame.Angles(0, -math.rad(_GSteerC * _Tune.SteerOuter * sDecay), 0)
+					end
+				end
+			end
+		end)
+		if not success and isStudio then warn("Steering error: ", result) end
 	end
 
 	--[[Engine]]
