@@ -37,7 +37,7 @@ This project has been bootstrapped with [Azul](https://github.com/Ransomwave/azu
 Use `azul push` to get this library into your Roblox project:
 
 ```ps1
-azul push -s .\sync\ReplicatedStorage -d "ReplicatedStorage"
+azul push -s .\sync\ReplicatedStorage -d ReplicatedStorage --from-sourcemap .\chassis.sourcemap.json
 ```
 
 This will push the library to `ReplicatedStorage`. You can change the destination to any service (i.e. `ServerStorage`, `ServerScriptService`, etc.).
